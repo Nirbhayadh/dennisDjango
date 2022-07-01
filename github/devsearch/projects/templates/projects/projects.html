@@ -2,20 +2,7 @@
 
 {% block content %}
 
-<table>
 
-    {% for project in projects %}
-    <tr>
-
-        <td><a href="{% url 'update-project' project.id %}">Edit</a></td>
-        <td><a href="{% url 'delete-project' project.id%}">Delete</a></td>
-
-        <td><a href="{% url 'project' project.id %}">View</a></td>
-    </tr>
-    {% endfor %}
-
-
-</table>
 
 
 <!-- Main Section -->
@@ -75,6 +62,9 @@
             </div>
         </div>
     </section>
+
+{% include 'pagination.html' with queryset=projects custom_range=custom_range %}
+
 
 </main>
 
