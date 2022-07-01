@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import Profile
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
-
+from .utils import searchProfiles
 def loginUser(request):
     page= 'login'
 
@@ -64,10 +64,7 @@ def registerUser(request):
 
 
 def profiles(request):
-    search_query=''
-    if request.GET.get('search_query'):
-        search_query = request.GET.get('search_query')
-    profiles= Profile.objects.filter(name__icontains=search_query)
+    profiles, search_query= searchProfiles(request)
     context={'profiles': profiles, 'search_query':search_query}
     return render(request, 'users/profiles.html', context)
 
