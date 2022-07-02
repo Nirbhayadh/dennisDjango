@@ -44,14 +44,16 @@
               {{project.vote_ratio}}% Postitive Feedback ({{project.vote_total}} Vote{{project.vote_total|pluralize:"s"}})
             </h5>
 
-            <form class="form" action="#" method="POST">
-              <!-- Textarea -->
+            <form class="form" action="{% url 'project' project.id %}" method="POST">
+{% csrf_token %}         
+     {% for field in form %}
+              {{field.label}}
+
               <div class="form__field">
-                <label for="formInput#textarea">Comments: </label>
-                <textarea class="input input--textarea" name="message" id="formInput#textarea"
-                  placeholder="Write your comments here..."></textarea>
+                {{field}}
               </div>
-              <input class="btn btn--sub btn--lg" type="submit" value="Comments" />
+              {% endfor %}
+              <input class="btn btn--sub btn--lg" type="submit" value="Add Review" />
             </form>
             <div class="commentList">
               {% for review in project.review_set.all %}
